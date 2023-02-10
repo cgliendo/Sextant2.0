@@ -1,0 +1,20 @@
+/*Created by bash script*/
+
+.Exhibit{
+    text-align: left;
+}
+.Content{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+.Rail{
+    /* padding: 0 1rem; */
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    gap: 1rem;
+    /* height: 80vh; */
+    /* background-color: rgb(76, 76, 76); */
+    /* border: 1px solid black; */
+}
