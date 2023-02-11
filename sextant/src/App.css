@@ -1,40 +1,46 @@
 .App {
   /* text-align: center; */
   height: 100vh;
-  box-sizing:content-box;
+  box-sizing:border-box;
   /* padding: 0 1rem; */
   padding: 0;
 }
 
 body{
-  --card: #F4F5FB;
-  --blue: #0894D3;
+  --card: #252525;
+  --blue: #31eeff;
   --dark-gray: #2F313C;
-  --red: #BE0E19;
-  --shadow-1: 1px 1px 1px rgba(96, 105, 228, 0.39);
-  background-color: #2C2B31;
-  font-size: calc(1vh + 6pt);
+  --red: #ee227e;
+  --shadow-1: 1px 1px 1px rgba(39, 41, 61, 0.39);
+  --headertext: #ee227e;
+  --bar-bg: #323232;
+  --bar-green:  rgb(147, 206, 88);
+  --warning: rgb(255, 180, 4);
+  --danger: #fb1c49;
+  background-color: #131314;
+  font-size: calc(1vh + 2pt);
   color: var(--blue);
   font-weight: 500;
   line-height: 1.25em;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 p{
   font-weight: 400;
 }
 
 body *{
-  border: 1px solid tomato;
-  border: 1px solid transparent;
+  /* border: 1px solid tomato; */
+  /* border: 1px solid transparent; */
 }
 
 header{
   /* padding: 0.5rem 1rem; */
+  /* border: 0px; */
   margin: 0;
   background-color: var(--dark-gray);
-  background-color: var(--blue);
+  /* background-color: var(--blue); */
   padding: 0 2.5rem;
-  color: whitesmoke;
+  color: var(--headertext);
 }
 header > div {
   display: flex;
@@ -42,7 +48,8 @@ header > div {
 }
 header h1{
   color: var(--blue);
-  color: whitesmoke;
+  /* color: whitesmoke; */
+  color: var(--headertext);
 }
 
 .exhibit{

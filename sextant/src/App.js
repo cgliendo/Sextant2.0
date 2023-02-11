@@ -6,36 +6,53 @@ import IPdisplay from './components/IPdisplay';
 import Latency from './components/Latency';
 import ProgressBar from './components/ProgressBar';
 import StatisticaPro from './components/StatisticaPro';
+import Weather from './components/Weather';
+import Clock from './components/Clock';
+import { useEffect } from 'react';
 
 function App() {
 
   const sampleData = (<p>
     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.
   </p>);
+//
+  useEffect(()=>{
+    // Server connection should go here
+    console.log("App started.");
+    return ()=> console.log("App removed");
+  });
 
   return (
     <div className="App">
       <Banner title={document.title}/>
       {/* {pageButtons} */}
       <Exhibit className='exhibit' /*title={pageTitle}*/>
-        <Card title="Network">
+        <Card>
+            <h2>Network</h2>
             <IPdisplay/>
             <IPdisplay ipv6={true}/>
             {/* <IPdisplay /> */}
             {/* <IPdisplay ipv6={true}/> */}
             <Latency/>
         </Card>
-        <Card title="Component 2">
+        {/* <Card title="Component 2">
           {sampleData}
         </Card>
         <Card title="Component 3">
           {sampleData}
           {sampleData}
-        </Card>
-        <Card title="iStatistica Pro">
+        </Card> */}
+        <Card>
           <StatisticaPro></StatisticaPro>
         </Card>
-        <Card title="Big Component">
+        <Card>
+          <Weather></Weather>
+        </Card>
+        <Card>
+          <Clock></Clock>
+        </Card>
+
+        {/* <Card title="Big Component">
             <div className='box-container'>
               <IPdisplay/>
               <IPdisplay ipv6={true}/>
@@ -48,7 +65,7 @@ function App() {
             <ProgressBar label='Data' value={60} percent={60} unit='%'/>
             <ProgressBar label='Data' value={22} percent={22} unit='%'/>
             <ProgressBar label='Data' value={43} percent={43} unit='%'/>
-        </Card>
+        </Card> */}
       </Exhibit>
     </div>
   );

@@ -1,0 +1,33 @@
+/*Created by bash script*/
+.Clock{
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 5rem;
+    font-weight: 800;
+    animation: clockPulse 2s infinite ease-in-out;
+}
+.Date{
+    opacity: 0.5;
+    text-align: center;
+    margin-top: 1rem;
+}
+span.colon{
+    color: inherit;
+    /* animation: clockPulse 2s infinite ease-in-out; */
+}
+
+@keyframes clockPulse {
+    0%{
+        /* color:inherit */
+        opacity: 1;
+    }
+    50%{
+        /* color: rgb(0, 146, 146); */
+        opacity: 0.75;
+    }
+    100%{
+        /* color: inherit; */
+        opacity: 1;
+    }
+}
+
