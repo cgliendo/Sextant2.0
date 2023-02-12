@@ -21,10 +21,10 @@ const StatisticaPro = (props) => {
         return ()=> clearInterval(timeout);
     });
     
+    let temp_color = renderData.temp_cpu >= 85 ? 'warning': undefined;
+    temp_color = renderData.temp_cpu >= 95 ? 'danger': temp_color;
 
-    // let temp_color = renderData.temp_cpu >= 85 ? 'warning': undefined;
-    // temp_color = renderData.temp_cpu >= 95 ? 'danger': temp_color;
-    // console.log('Rendering...',renderData);
+
     return (
         <div>
             <h2>{renderData.hostName}</h2>

@@ -12,7 +12,8 @@ import { useEffect, useRef } from 'react';
 
 var client;
 var W3CWebSocket;
-let init = false;
+var init = false;
+var connected = false;
 var data;
 
 
@@ -31,7 +32,7 @@ const connect = (callback)=>{
   }; 
   client.onopen = function() {
       console.log('WebSocket Client Connected');
-      // connected = true;
+      connected = true;
   };
   client.onmessage = function(e) {
       // console.log('message:', JSON.parse(e.data));
@@ -40,7 +41,10 @@ const connect = (callback)=>{
 }
 
 const close = ()=>{
-
+  if(connected===true){
+    client.close();
+    connected=init=false;
+  }
 }
 
 
@@ -55,18 +59,29 @@ function App() {
 
   let interval;
   useEffect(()=>{
+    //-------------------------------
+    // Setup
+    //-------------------------------
     console.log("\n\nApp started.");
     if(!init) connect();
     interval = setInterval(()=>{
       console.log("APP:Timeout:",statisticaData.current);
       statisticaData.current = {...data};
     },5000);
+
+    //-------------------------------
+    //Cleanup
+    //-------------------------------
     return ()=> {
       console.log("App removed");
       clearInterval(interval);
+      close();
   }
   });
 
+  //-------------------------------
+  //Render
+  //-------------------------------
   return (
     <div className="App">
       <Banner title={document.title}/>
