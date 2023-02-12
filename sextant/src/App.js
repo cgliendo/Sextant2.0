@@ -8,18 +8,63 @@ import ProgressBar from './components/ProgressBar';
 import StatisticaPro from './components/StatisticaPro';
 import Weather from './components/Weather';
 import Clock from './components/Clock';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
+var client;
+var W3CWebSocket;
+let init = false;
+var data;
+
+
+const connect = (callback)=>{
+  if(!init){
+      init=true;
+      W3CWebSocket = require('websocket').w3cwebsocket;
+      // client = new W3CWebSocket('ws://localhost:55460/', null);
+      client = new W3CWebSocket('ws://localhost:55460/', 'echo-protocol');
+  }
+  client.onclose = function() {
+      console.log('Connection Closed');
+  }
+  client.onerror = function() {
+      console.log('Connection Error');
+  }; 
+  client.onopen = function() {
+      console.log('WebSocket Client Connected');
+      // connected = true;
+  };
+  client.onmessage = function(e) {
+      // console.log('message:', JSON.parse(e.data));
+      data = JSON.parse(e.data);
+  };
+}
+
+const close = ()=>{
+
+}
+
 
 function App() {
+  const statisticaData = useRef({
+        hostName: "Connecting...",
+        cpu: 0,
+        gpu: 0,
+        memory: 0,
+        temp_cpu: 0
+  });
 
-  const sampleData = (<p>
-    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.
-  </p>);
-//
+  let interval;
   useEffect(()=>{
-    // Server connection should go here
-    console.log("App started.");
-    return ()=> console.log("App removed");
+    console.log("\n\nApp started.");
+    if(!init) connect();
+    interval = setInterval(()=>{
+      console.log("APP:Timeout:",statisticaData.current);
+      statisticaData.current = {...data};
+    },5000);
+    return ()=> {
+      console.log("App removed");
+      clearInterval(interval);
+  }
   });
 
   return (
@@ -31,41 +76,17 @@ function App() {
             <h2>Network</h2>
             <IPdisplay/>
             <IPdisplay ipv6={true}/>
-            {/* <IPdisplay /> */}
-            {/* <IPdisplay ipv6={true}/> */}
             <Latency/>
         </Card>
-        {/* <Card title="Component 2">
-          {sampleData}
-        </Card>
-        <Card title="Component 3">
-          {sampleData}
-          {sampleData}
-        </Card> */}
         <Card>
-          <StatisticaPro></StatisticaPro>
+          <StatisticaPro data={statisticaData}/>
         </Card>
         <Card>
-          <Weather></Weather>
+          <Weather/>
         </Card>
         <Card>
-          <Clock></Clock>
+          <Clock/>
         </Card>
-
-        {/* <Card title="Big Component">
-            <div className='box-container'>
-              <IPdisplay/>
-              <IPdisplay ipv6={true}/>
-            </div>
-            <ProgressBar label='Data' value={30} percent={30} unit='%'/>
-            <ProgressBar label='Data' value={45} percent={45} unit='%'/>
-            <ProgressBar label='Data' value={60} percent={60} unit='%'/>
-            <ProgressBar label='Data' value={30} percent={30} unit='%'/>
-            <ProgressBar label='Data' value={45} percent={45} unit='%'/>
-            <ProgressBar label='Data' value={60} percent={60} unit='%'/>
-            <ProgressBar label='Data' value={22} percent={22} unit='%'/>
-            <ProgressBar label='Data' value={43} percent={43} unit='%'/>
-        </Card> */}
       </Exhibit>
     </div>
   );
